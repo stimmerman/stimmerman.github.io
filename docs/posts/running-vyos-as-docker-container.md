@@ -131,7 +131,7 @@ You should be greeted by a VyOS prompt like `vyos@vyos:/$` if all went well.
     vyos@vyos# set service ssh
     vyos@vyos# commit; save; exit
     ```
-    Find out the IP address assigned to eth0 (172.17.0.4)
+    Find out the IP address assigned to eth0 in my case 172.17.0.4
     ```
     vyos@vyos:~$ show int
     Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
