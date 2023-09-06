@@ -1,3 +1,62 @@
 site_name: Red9
+site_url: https://red9.nl
+site_author: Sander Timmerman
+
 theme:
   name: material
+  icon:
+    logo: material/numeric-9-box
+  features:
+    - content.code.copy
+    - navigation.sections
+    - navigation.instant
+  palette: 
+    - scheme: default
+      toggle:
+        icon: material/theme-light-dark
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/theme-light-dark
+        name: Switch to light mode
+
+plugins:
+  - blog:
+      blog_dir: .
+      authors: true
+      post_url_format: "{slug}"
+  - rss:
+      match_path: posts/.* 
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags 
+  - search
+  - tags
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tilde
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.tabbed: 
+      alternate_style: true
+
+nav:
+  - index.md
+
+hooks:
+  - hooks/external_links_md_extension.py
