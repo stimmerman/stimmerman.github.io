@@ -1,9 +1,10 @@
 ---
-date: 2023-09-06
 authors: [stimmerman]
+comments: true
 categories:
   - Containerlab
   - VyOS
+date: 2023-09-06
 tags:
   - containerlab
   - docker

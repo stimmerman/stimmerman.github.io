@@ -19,6 +19,7 @@ theme:
       toggle:
         icon: material/theme-light-dark
         name: Switch to light mode
+  custom_dir: overrides
 
 plugins:
   - blog:
