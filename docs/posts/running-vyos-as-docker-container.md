@@ -4,7 +4,9 @@ comments: true
 categories:
   - Containerlab
   - VyOS
-date: 2023-09-06
+date: 
+  created: 2023-09-06
+  updated: 2023-12-14
 tags:
   - containerlab
   - docker
@@ -24,32 +26,34 @@ First build both the LTS and rolling ISO's from which the containers will be cre
 mkdir vyos-builds && cd vyos-builds
 ```
 
-=== "LTS (1.3.3)"
+=== "LTS (1.3.4)"
 
     ```bash
     git clone -b equuleus --single-branch https://github.com/vyos/vyos-build vyos-lts
     docker run --rm -it --privileged -v $(pwd)/vyos-lts:/vyos -w /vyos vyos/vyos-build:equuleus bash
-    ./configure --architecture amd64 --build-by "red9-homelab" --build-type release --version 1.3.3
+    ./configure --architecture amd64 --build-by "red9-homelab" --build-type release --version 1.3.4
     sudo make iso
+    exit
     ```
 
 === "Rolling (1.4.x)"
 
     ```bash
-    git clone -b current --single-branch https://github.com/vyos/vyos-build vyos-rolling
-    docker run --rm -it --privileged -v $(pwd)/vyos-rolling:/vyos -w /vyos vyos/vyos-build:current bash
+    git clone -b sagitta --single-branch https://github.com/vyos/vyos-build vyos-rolling
+    docker run --rm -it --privileged -v $(pwd)/vyos-rolling:/vyos -w /vyos vyos/vyos-build:sagitta bash
     sudo make clean
     sudo ./build-vyos-image iso --architecture amd64 --build-by "red9-homelab"
+    exit
     ```
 
 ## Building the containers
 When the build process is completed we can mount the ISO's and create the containers from it
 
-=== "LTS (1.3.3)"
+=== "LTS (1.3.4)"
 
     ```bash
     mkdir lts-rootfs
-    sudo mount -o loop vyos-lts/build/vyos-1.3.3-amd64.iso lts-rootfs
+    sudo mount -o loop vyos-lts/build/vyos-1.3.4-amd64.iso lts-rootfs
     mkdir lts-unsquashfs
     sudo unsquashfs -f -d lts-unsquashfs/ lts-rootfs/live/filesystem.squashfs
     # Fix locale
@@ -62,7 +66,7 @@ When the build process is completed we can mount the ISO's and create the contai
     sudo rm -rf lts-unsquashfs/usr/lib/x86_64-linux-gnu/libwireshark.so*
     sudo rm -rf lts-unsquashfs/lib/modules/*amd64-vyos
     # Pack it up and import in docker
-    sudo tar -C lts-unsquashfs -c . | sudo docker import - vyos:1.3.3 --change 'CMD ["/sbin/init"]'
+    sudo tar -C lts-unsquashfs -c . | sudo docker import - vyos:1.3.4 --change 'CMD ["/sbin/init"]'
     ```
 
 === "Rolling (1.4.x)"
@@ -82,8 +86,8 @@ When the build process is completed we can mount the ISO's and create the contai
     sudo rm -rf rolling-unsquashfs/usr/lib/x86_64-linux-gnu/libwireshark.so*
     sudo rm -rf rolling-unsquashfs/lib/modules/*amd64-vyos
     # Pack it up and import in docker
-    export BUILD=$(date "+%Y%m%d%H%M")
-    sudo tar -C rolling-unsquashfs -c . | sudo docker import - vyos:1.4-{$BUILD} --change 'CMD ["/sbin/init"]'
+    export BUILD=$(date "+%y%m%d%H%M")
+    sudo tar -C rolling-unsquashfs -c . | sudo docker import - vyos:1.4-$BUILD --change 'CMD ["/sbin/init"]'
     ```
 
 If everything went according to plan there should be two VyOS docker images:
