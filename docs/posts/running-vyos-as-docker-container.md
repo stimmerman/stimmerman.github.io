@@ -4,9 +4,7 @@ comments: true
 categories:
   - Containerlab
   - VyOS
-date: 
-  created: 2023-09-06
-  updated: 2023-12-14
+date: 2023-09-06
 tags:
   - containerlab
   - docker

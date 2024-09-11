@@ -28,6 +28,15 @@ plugins:
       blog_dir: .
       authors: true
       post_url_format: "{slug}"
+      blog_toc: true
+      categories_toc: false
+  - rss:
+      match_path: posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+      comments_path: "#__comments"
 
 markdown_extensions:
   - admonition
@@ -48,6 +57,7 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.tabbed: 
       alternate_style: true
+
 
 nav:
   - index.md
