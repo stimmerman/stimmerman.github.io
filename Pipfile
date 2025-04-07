@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-mkdocs-material = "==9.6.10"
+mkdocs-material = "==9.6.11"
 mkdocs-rss-plugin = "==1.17.1"
 
 [dev-packages]
