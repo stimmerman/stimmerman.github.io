@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 mkdocs-material = "==9.7.0"
-mkdocs-rss-plugin = "==1.17.4"
+mkdocs-rss-plugin = "==1.17.7"
 
 [dev-packages]
 
